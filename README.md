@@ -1,11 +1,3 @@
-# vitePress-demo
+# XiaoLi_1456 Blog
 
-vitePress 模板
-
-## start
-
-```shell
-pnpm i
-
-pnpm dev
-```
+记录学习生活， 以及一些知识的分享
