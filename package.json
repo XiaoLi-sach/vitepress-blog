@@ -1,0 +1,13 @@
+{
+  "name": "XiaoLi_Blog",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "serve": "vitepress serve docs"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "vitepress": "^0.22.4",
+    "vue": "^3.2.33"
+  }
+}
