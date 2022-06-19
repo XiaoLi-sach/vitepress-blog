@@ -129,3 +129,69 @@ function getComplement(color) {
 ```
 
 常量使用Symbol 值最大的好处， 就是其他任何值都不可能由相同的值了， 因此可以保证上面的switch 语句会按设计的方式工作。 当Symbol作为属性名时， 该属性是公开属性， 不是私有属性
+
+## Promise
+
+`Promise`用来处理异步操作， 是构建函数， 参数为 `then`和`catch`后需要执行的方法， 下面是使用 `Promise`封装的`ajax`
+
+```js
+const getJSON = function(url) {
+ const promise = new Promise((resolve, reject) => {
+  if(this.readyState !==4) {
+   return
+  }
+  if(this.status === 200) {
+   resolve(this.response)
+  } else {
+   reject(new Error(this.statusText))
+  }
+  const client = new XMLHttpRequest()
+        client.open('GET', url)
+        client.onreadystatechange = handler
+        client.responseType = 'json'
+        client.setRequestHeader("Accept", "application/json")
+        client.send()
+ })
+ return promise
+}
+getJSON("/posts.json").then(function(json){
+ console.log('Contents: ' + json)
+}, function(error) {
+ console.log('错误', error)
+})
+```
+
+## Proxy和Reflect
+
+`Proxy`代理对象的各种内置方法, `get ``set ``construct`等, 类似于拦截器 .
+`Reflect`则作为 `Object`的代替者, `Object`上的一些静态方法被移植到了 `Reflect`上.
+`Reflect`对象一共有13个静态方法。
+
+- Reflect.apply(target, thisArg, args)
+- Reflect.construct(target, args)
+- Reflect.get(target, name, receiver)
+- Reflect.set(target, name, value, receiver)
+- Reflect.defineProperty(target, name, desc)
+- Reflect.deleteProperty(target, name)
+- Reflect.has(target, name)
+- Reflect.ownKeys(target)
+- Reflect.preventExtensions(target)
+- Reflect.getOwnPropertyDescritptor(target, name)
+- Reflect.getPrototypeOf(target)
+- Reflect.setPrototypeOf(target)
+通过 `Proxy`和 `Reflect`可以实现观察者模式， 就是监听`set`方法，执行相应操作。
+
+```js
+const person = { name: 'Li', age: 18}
+const personObserved = observe(person)
+
+function observe(obj) {
+ return new Proxy(obj, {
+  console.log(`setting ${key} to ${value}!`) `
+  return Reflect.set(target, key, value, receiver)
+ })
+}
+
+personObseved.name = 'zhao'
+// setting name to zhao
+```
